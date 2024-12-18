@@ -3,6 +3,7 @@ import { useState } from "react";
 
 function Todo(){
   const [task, setTask] = useState("");
+  const [items, setItems] = useState([]);
   const [isVisible, setisVisible] = useState(false);
 
 
@@ -11,11 +12,19 @@ function Todo(){
   }
 
   function handleClick(e){
-    setTask(task)
+    console.log("bhai mai chalrun aapke saath hun no tension")
+    setItems((prevItems) => {
+      return [...prevItems, task];
+    })
+
+    setTask("");
+    
+    console.log("task", task)
     e.preventDefault();
-    if(task.trim() !== ""){
-      setisVisible(true)
-    }
+    setisVisible(true);
+    // if(task.trim() !== ""){
+    //   setisVisible(true)
+    // }
   }
   // function handler(){
   //   document.getElementById("list").setAttribute("style", "visibility: visible");
@@ -26,12 +35,23 @@ function Todo(){
 
     return <div className="flex items-center flex-col gap-2.5 w-80 h-2/4 bg-white text-black rounded-xl">
       <h2 className="mt-8">To Do list</h2>
-      <form action="" onSubmit={handleClick} className="w-full flex justify-center gap-3">
+      <form action="" className="w-full flex justify-center gap-3">
         <input className="outline-none border-b-2 border-yellow-400" type="text" placeholder="Enter Task" onChange={handleChange} name="task" value={task}/>
-        <button className="bg-yellow-400 outline-none w-16 rounded-sm" >Add</button>
+        <button className="bg-yellow-400 outline-none w-16 rounded-sm" onClick={handleClick}>Add</button>
       </form>
-      <ul id="list">
-        <li className={`list-disc ${isVisible ? "visible" : "invisible"} `}>{task}</li>
+      <ul>
+        {
+          items.map((todoTask, index) => {
+          return (
+            <li 
+            key={index}
+            className={`list-disc ${isVisible ? "visible" : "invisible"}`}
+            >
+            {todoTask}
+            </li>
+          )
+        })
+        }
       </ul>
     </div>
 }
