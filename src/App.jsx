@@ -1,9 +1,8 @@
 import Todo from "./Todo.jsx";
 import './input.css'
 function App(){
-  return <div className="p-4 bg-green-500 text-white text-center">
+  return <div className="bg-orange-400 w-full h-screen flex justify-center items-center font-sans">
     <Todo />
-    <h2>Building To do App</h2>
   </div>
 }
 
